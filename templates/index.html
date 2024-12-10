@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<form id="qrForm" action="/generate" method="post" enctype="multipart/form-data">
+    {{ csrf_token }}
+    <label for="data">Text or URL:</label>
+    <input type="text" id="data" name="data" required>
+    
+    <label for="fill_color">QR Code Color:</label>
+    <input type="text" id="fill_color" name="fill_color" placeholder="black" >
+    
+    <label for="back_color">Background Color:</label>
+    <input type="text" id="back_color" name="back_color" placeholder="white" >
+    
+    <label for="logo">Logo (optional):</label>
+    <input type="file" id="logo" name="logo">
+    
+    <button type="submit">Generate QR Code</button>
+
+</form>
+
+<script>
+    document.getElementById("qrForm").addEventListener("submit", function(event){
+        // fetch inputs
+        const data = document.getElementById("data").value.trim();
+        const fillColor = document.getElementById("fill_color").value.trim();
+        const backColor = document.getElementById("back_color").value.trim();
+        const logo = document.getElementById("logo").files[0];
+
+        // validate form inputs
+        if(!data){
+            alert("Error: Text or URL cannot be empty");
+            event.preventDefault();
+            return;                
+        }
+
+        if(!/^[a-zA-Z]+$/.test(fillColor)){
+            alert("Error: QR Code color must be a valid color name (e.g., 'black').");
+            event.preventDefault();
+            return;
+        }
+
+        if(!/^[a-zA-Z]+$/.test(backColor)){
+            alert("Error: Background color must be a valid color name (e.g., 'white').");
+            event.preventDefault();
+            return;
+        }
+
+        if(logo && !/\.(png|jpg|jpeg)$/i.test(logo.name)){
+            alert("Error: Only PNG or JPG files are allowed for the logo.");
+            event.preventDefault();
+            return;
+        }
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,20 @@
+# Python-specific ignores
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Environment files
+.env
+*.env
+
+# Logs
+*.log
+
+# Flask static files
+static/qr_codes/
+static/logo/
+
+# IDE files
+.vscode/
+.idea/
+venv

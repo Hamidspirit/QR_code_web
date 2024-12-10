@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your QR Code</h2>
+<img src="{{ qr_code }}" alt="Generated QR Code">
+<br>
+<a href="{{ qr_code }}" download>Download QR Code</a>
+<br>
+<a href="/">Generate Another</a>
+{% endblock %}
